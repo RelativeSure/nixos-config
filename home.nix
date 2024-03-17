@@ -60,7 +60,7 @@
     httpie
 
     # treesitter
-    tree-sitter
+    #tree-sitter
 
     # language servers
     ccls # c / c++
@@ -102,7 +102,6 @@ in {
     homeDirectory = "/home/${username}";
 
     sessionVariables.EDITOR = "lvim";
-    # FIXME: set your preferred $SHELL
     sessionVariables.SHELL = "/etc/profiles/per-user/${username}/bin/fish";
   };
 
@@ -116,8 +115,6 @@ in {
       # pkgs.unstable.some-other-package
     ];
 
-  # FIXME: if you want to version your LunarVim config, add it to the root of this repo and uncomment the next line
-  # https://github.com/bonsairobo/MyNixOs/blob/f3fff2969131350966c8c2def7283829c98ddbdd/configuration.nix#L234-L243
   home.file.".config/lvim/config.lua".source = ./lvim_config.lua;
   home.file.".config/lvim/lua/user/markdown_syn.lua".source = ./markdown_syn.lua;
   home.file.".config/lvim/lua/user/noice.lua".source = ./noice.lua;
@@ -125,14 +122,6 @@ in {
   home.file.".config/lvim/lua/user/sidebar.lua".source = ./sidebar.lua;
 
   home.file.".gitignore".source = ./gitignore;
-
-  #home.file = {
-  #  lunarvim_conf = { source = ./config.lua; target = ".config/lvim/config.lua"; };
-  #  lunarvim_markdown_syn = { source = ./markdown_syn.lua; target = ".config/lua/user/markdown_syn.lua"; };
-  #  lunarvim_noice = { source = ./noice.lua; target = ".config/lua/user/noice.lua"; };
-  #  lunarvim_presence = { source = ./presence.lua; target = ".config/lua/user/presence.lua"; };
-  #  lunarvim_sidebar = { source = ./sidebar.lua; target = ".config/lua/user/sidebar.lua"; };
-  #};
 
   programs = {
     home-manager.enable = true;
