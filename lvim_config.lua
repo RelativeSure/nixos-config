@@ -10,8 +10,6 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   -- any other extensions loading
 end
 
-lvim.builtin.treesitter.rainbow = { enabled = true }
-
 lvim.builtin.which_key.mappings["t"] = {
   name = "Diagnostics",
   t = { "<cmd>TroubleToggle<cr>", "trouble" },
@@ -32,7 +30,46 @@ lvim.builtin.which_key.mappings["S"] = {
 lvim.plugins = {
   { "lunarvim/colorschemes" },
   { "MunifTanjim/nui.nvim" },
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        enable_git_status = true,
+        window = {
+          width = 30,
+        },
+        name = {
+          trailing_slash = false,
+          use_git_status_colors = true,
+          highlight = "NeoTreeFileName",
+        },
+        buffers = {
+          follow_current_file = true,
+        },
+        filesystem = {
+          follow_current_file = true,
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_by_name = {
+              "node_modules"
+            },
+            never_show = {
+              ".DS_Store",
+              "thumbs.db"
+            },
+          },
+        },
+      })
+    end,
+  },
   {
     "stevearc/dressing.nvim",
     config = function()
@@ -141,12 +178,6 @@ lvim.plugins = {
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
-  },
-  {
-    "Pocco81/auto-save.nvim",
-    config = function()
-      require("auto-save").setup()
-    end,
   },
   {
     "npxbr/glow.nvim",

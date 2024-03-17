@@ -62,6 +62,13 @@
     (import ./win32yank.nix {inherit pkgs;})
     pkgs.openvscode-server
     pkgs.wget
+    pkgs.fishPlugins.sponge
+    pkgs.fishPlugins.pure
+    pkgs.fishPlugins.puffer
+    pkgs.fishPlugins.plugin-git
+    pkgs.fishPlugins.fzf-fish
+    pkgs.fishPlugins.forgit
+    pkgs.fishPlugins.colored-man-pages
   ];
 
   home-manager.users.${username} = {

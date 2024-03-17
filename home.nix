@@ -112,13 +112,6 @@ in {
     ++
     # FIXME: you can add anything else that doesn't fit into the above two lists in here
     [ 
-      pkgs.fishPlugins.sponge
-      pkgs.fishPlugins.pure
-      pkgs.fishPlugins.puffer
-      pkgs.fishPlugins.plugin-git
-      pkgs.fishPlugins.fzf-fish
-      pkgs.fishPlugins.forgit
-      pkgs.fishPlugins.colored-man-pages
       # pkgs.some-package
       # pkgs.unstable.some-other-package
     ];
@@ -215,7 +208,7 @@ in {
           autoSetupRemote = true;
         };
         merge = {
-          conflictstyle = "diff";
+          conflictstyle = "diff3";
         };
         diff = {
           colorMoved = "default";
