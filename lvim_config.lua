@@ -27,6 +27,8 @@ lvim.builtin.which_key.mappings["S"] = {
   Q    = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
+lvim.builtin.nvimtree.active = false -- NOTE: Using neo-tree
+
 lvim.plugins = {
   { "lunarvim/colorschemes" },
   { "MunifTanjim/nui.nvim" },
