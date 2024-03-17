@@ -10,8 +10,6 @@ lvim.builtin.telescope.on_config_done = function(telescope)
   -- any other extensions loading
 end
 
-lvim.builtin.treesitter.rainbow = { enabled = true }
-
 lvim.builtin.which_key.mappings["t"] = {
   name = "Diagnostics",
   t = { "<cmd>TroubleToggle<cr>", "trouble" },
@@ -29,10 +27,51 @@ lvim.builtin.which_key.mappings["S"] = {
   Q    = { "<cmd>lua require('persistence').stop()<cr>", "Quit without saving session" },
 }
 
+lvim.builtin.nvimtree.active = false -- NOTE: Using neo-tree
+
 lvim.plugins = {
   { "lunarvim/colorschemes" },
   { "MunifTanjim/nui.nvim" },
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "MunifTanjim/nui.nvim",
+    },
+    config = function()
+      require("neo-tree").setup({
+        close_if_last_window = true,
+        enable_git_status = true,
+        window = {
+          width = 30,
+        },
+        name = {
+          trailing_slash = false,
+          use_git_status_colors = true,
+          highlight = "NeoTreeFileName",
+        },
+        buffers = {
+          follow_current_file = true,
+        },
+        filesystem = {
+          follow_current_file = true,
+          filtered_items = {
+            hide_dotfiles = false,
+            hide_gitignored = false,
+            hide_by_name = {
+              "node_modules"
+            },
+            never_show = {
+              ".DS_Store",
+              "thumbs.db"
+            },
+          },
+        },
+      })
+    end,
+  },
   {
     "stevearc/dressing.nvim",
     config = function()
@@ -60,28 +99,6 @@ lvim.plugins = {
       vim.g.rnvimr_draw_border = 1
       vim.g.rnvimr_pick_enable = 1
       vim.g.rnvimr_bw_enable = 1
-    end,
-  },
-  { "HiPhish/nvim-ts-rainbow2" },
-  {
-    "romgrk/nvim-treesitter-context",
-    config = function()
-      require("treesitter-context").setup {
-        enable = true,   -- Enable this plugin (Can be enabled/disabled later via commands)
-        throttle = true, -- Throttles plugin updates (may improve performance)
-        max_lines = 0,   -- How many lines the window should span. Values <= 0 mean no limit.
-        patterns = {     -- Match patterns for TS nodes. These get wrapped to match at word boundaries.
-          -- For all filetypes
-          -- Note that setting an entry here replaces all other patterns for this entry.
-          -- By setting the 'default' entry below, you can control which nodes you want to
-          -- appear in the context window.
-          default = {
-            'class',
-            'function',
-            'method',
-          },
-        },
-      }
     end,
   },
   {
@@ -141,12 +158,6 @@ lvim.plugins = {
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
-  },
-  {
-    "Pocco81/auto-save.nvim",
-    config = function()
-      require("auto-save").setup()
-    end,
   },
   {
     "npxbr/glow.nvim",

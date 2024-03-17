@@ -25,11 +25,6 @@
 
   programs.nix-ld.enable = true;
 
-  # FIXME: change your shell here if you don't want zsh
-  #programs.zsh.enable = false;
-  #environment.pathsToLink = ["/share/zsh"];
-  #environment.shells = [pkgs.zsh];
-
   programs.fish.enable = true;
   environment.pathsToLink = ["/share/fish"];
   environment.shells = [pkgs.fish];
@@ -43,25 +38,25 @@
 
   users.users.${username} = {
     isNormalUser = true;
-    # FIXME: change your shell here if you don't want zsh
     shell = pkgs.fish;
     extraGroups = [
       "wheel"
-      # FIXME: uncomment the next line if you want to run docker without sudo
-      # "docker"
+      "docker"
     ];
-    # FIXME: add your own hashed password
-    # hashedPassword = "";
-    # FIXME: add your own ssh public key
-    # openssh.authorizedKeys.keys = [
-    #   "ssh-rsa ..."
-    # ];
   };
 
   environment.systemPackages = [
     (import ./win32yank.nix {inherit pkgs;})
     pkgs.openvscode-server
     pkgs.wget
+    pkgs.fishPlugins.sponge
+    pkgs.fishPlugins.pure
+    pkgs.fishPlugins.puffer
+    pkgs.fishPlugins.plugin-git
+    pkgs.fishPlugins.fzf-fish
+    pkgs.fishPlugins.forgit
+    pkgs.fishPlugins.colored-man-pages
+    pkgs.lazygit
   ];
 
   home-manager.users.${username} = {
